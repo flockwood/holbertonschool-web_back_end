@@ -1,36 +1,21 @@
 #!/usr/bin/env python3
-"""
-This module contains a simple helper function for calculating pagination indexes.
-
-The index_range function helps convert page-based pagination parameters into
-start and end indexes that can be used for list slicing operations.
-"""
+"""Simple helper function for pagination."""
+from typing import Tuple
 
 
-def index_range(page: int, page_size: int) -> tuple:
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Calculate start and end index for pagination parameters.
-
-    This function takes a page number and page size, then returns the
-    corresponding start and end indexes that can be used to slice a list
-    or query a database with limit and offset. Page numbers are 1-indexed,
-    meaning the first page is page 1, not page 0.
-
-    Args:
-        page: The current page number (1-indexed), must be a positive integer
-        page_size: The number of items per page, must be a positive integer
-
-    Returns:
-        A tuple containing two integers: (start_index, end_index) where
-        start_index is inclusive and end_index is exclusive, suitable for
-        Python's slice notation
-
-    Example:
-        >>> index_range(1, 7)
-        (0, 7)
-        >>> index_range(3, 15)
-        (30, 45)
+    Return a tuple (start, end) of 0-based indices for slicing.
+    
+    - `page` is 1-indexed (page 1 is the first page).
+    - `start` is inclusive; `end` is exclusive (Python slicing style).
+      e.g. my_list[start:end]
+    
+    Examples (for your own checks, not required in code):
+      page=1, page_size=7   -> (0, 7)
+      page=3, page_size=15  -> (30, 45)
     """
-    start_index = (page - 1) * page_size
-    end_index = start_index + page_size
-    return (start_index, end_index)
+    offset = (page - 1) * page_size
+    start = offset
+    end = start + page_size
+    return (start, end)
