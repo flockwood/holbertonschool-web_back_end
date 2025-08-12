@@ -58,33 +58,26 @@ class Server:
             index = 0
             
         dataset = self.indexed_dataset()
+        data_length = len(self.dataset())
         
         # Assert that index is in valid range
-        assert 0 <= index < len(self.dataset()), "Index out of range"
+        assert 0 <= index < data_length, "Index out of range"
         
         data = []
-        current_index = index
-        collected = 0
-        next_index = None
+        current_idx = index
+        items_collected = 0
         
-        # Get all available indices sorted
-        available_indices = sorted(dataset.keys())
+        # Collect page_size items starting from index
+        # Skip over deleted items (missing keys)
+        while items_collected < page_size and current_idx < data_length:
+            if current_idx in dataset:
+                data.append(dataset[current_idx])
+                items_collected += 1
+            current_idx += 1
         
-        # Find the starting position in available indices
-        # We need to find indices >= index
-        for idx in available_indices:
-            if idx >= current_index and collected < page_size:
-                data.append(dataset[idx])
-                collected += 1
-                # Track the last index we used + 1 for next_index
-                next_index = idx + 1
+        # next_index is where we stopped searching
+        next_index = current_idx
         
-        # If we didn't collect enough items, next_index should be after the last available
-        if collected == 0:
-            next_index = index
-        elif next_index is None:
-            next_index = index + page_size
-            
         return {
             'index': index,
             'next_index': next_index,
