@@ -1,6 +1,5 @@
 export default class ClassRoom {
   constructor(maxStudentsSize) {
-    // eslint-disable-next-line no-underscore-dangle
-    this._maxStudentsSize = maxStudentsSize;
+    this._maxStudentsSize = maxStudentsSize; // eslint-disable-line no-underscore-dangle
   }
 }
