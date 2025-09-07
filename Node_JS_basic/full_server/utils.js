@@ -47,6 +47,6 @@ const readDatabase = (filePath) => {
       }
     });
   });
-});
+};
 
 export default readDatabase;
