@@ -6,7 +6,7 @@ const http = require('http');
 const app = http.createServer((req, res) => {
   // Set response header for plain text
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  
+
   // Send response body and end the response
   res.end('Hello Holberton School!');
 });
