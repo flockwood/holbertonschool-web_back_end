@@ -1,5 +1,12 @@
+#!/usr/bin/env node
+
+/**
+ * Interactive program that prompts for user name via stdin
+ * Displays welcome message, captures input, and shows closing message on exit
+ */
+
 // Display welcome message
-console.log('Welcome to Holberton School, what is your name?');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 // Set encoding for stdin to get string data
 process.stdin.setEncoding('utf8');
@@ -15,5 +22,5 @@ process.stdin.on('readable', () => {
 
 // Listen for the end event (when stdin closes)
 process.stdin.on('end', () => {
-  console.log('This important software is now closing');
+  process.stdout.write('This important software is now closing\n');
 });
