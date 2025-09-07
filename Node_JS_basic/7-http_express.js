@@ -78,13 +78,13 @@ app.get('/', (req, res) => {
  */
 app.get('/students', async (req, res) => {
   res.type('text/plain');
-  
+
   // Start with the header message
   let response = 'This is the list of our students\n';
-  
+
   // Get database filename from command line arguments
   const database = process.argv[2];
-  
+
   try {
     const studentData = await countStudents(database);
     response += studentData;
